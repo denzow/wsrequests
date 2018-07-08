@@ -56,11 +56,16 @@ class WsRequests:
         :param str ws_url:
         """
         if self.ws:
+            self.disconnect()
+
+        self.logger.debug('connect websocket [{}]'.format(ws_url))
+        self.ws = self._get_ws_client(ws_url)
+
+    def disconnect(self):
+        if self.ws:
             self.ws.close()
             self.logger.debug('disconnect websocket [{}]'.format(self.latest_ws_url))
             self.ws = None
-        self.logger.debug('connect websocket [{}]'.format(ws_url))
-        self.ws = self._get_ws_client(ws_url)
 
     def send_message(self, message):
         """
@@ -78,6 +83,8 @@ class WsRequests:
         receive message via websocket. if no message, wait for new message.
         :return:
         """
+        if not self.ws:
+            raise WsRequestsError('Not WebSocket Connected.')
         message = self.ws.recv()
         self.logger.debug('receive message [{}]'.format(message))
         return json.loads(message)

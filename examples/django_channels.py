@@ -1,17 +1,5 @@
-# wsrequests
+# coding: utf-8
 
-thin wrapper for requests enable websocket.
-
-
-## how to install
-
-```bash
-$ pip install wsrequests
-```
-
-## how to use
-
-```python
 from wsrequests import WsRequests
 
 wsr = WsRequests()
@@ -33,6 +21,3 @@ wsr.connect('ws://localhost:3000/ws/room')
 wsr.send_message({'message': 'ping'})
 wsr.receive_message()
 wsr.disconnect()
-
-```
-
