@@ -17,9 +17,10 @@ from wsrequests import WsRequests
 wsr = WsRequests()
 
 # login django
-wsr.get('http://localhost:3000')
+# get csrftoken
+wsr.get('http://localhost:3000/login')
 wsr.post(
-    'http://localhost:3000',
+    'http://localhost:3000/login',
     data={
         'username': 'your name',
         'password': 'your password',
